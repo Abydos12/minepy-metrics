@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  minepy-metrics:
+    image: abydos12/minepy-metrics:latest
+    build: .
+    container_name: Minepy-metrics
+    environment:
+      - "RCON_HOST:localhost"
+      - "RCON_PASSWORD:password"
+      - "RCON_PORT:25575"
+    ports:
+      - "8000:8000"
+    volumes:
+    - "/path/to/serv/folder:/minecraft"
