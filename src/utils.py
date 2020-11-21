@@ -48,8 +48,10 @@ def get_game_infos():
         return {
             "version": level_data["Data"]["Version"]["Name"].value,
             "difficulty": str(level_data["Data"]["Difficulty"].value),
-            "game_mode": str(level_data["Data"]["GameType"].value)
+            "game_mode": str(level_data["Data"]["GameType"].value),
+            "hardcore": str(level_data["Data"]["hardcore"].value),
         }
+
 
 def rcon_command(command: str):
     try:

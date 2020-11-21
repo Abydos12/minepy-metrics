@@ -4,7 +4,7 @@ from src.utils import get_player_names, rcon_command
 
 
 def get_players_online():
-    return x.split(":")[1].split(",") if (x := rcon_command("list")) else []
+    return [y.strip() for y in x.split(":")[1].split(",")] if (x := rcon_command("list")) else []
 
 
 def get_players_online_metric():

@@ -13,9 +13,12 @@ def get_players_uuid_name_metric():
 
 
 def get_server_infos_metric():
-    g = GaugeMetricFamily(name="mc_server_info", documentation="Give server info", labels=["version", "difficulty", "game_mode"])
+    g = GaugeMetricFamily(
+        name="mc_server_info",
+        documentation="Give server info",
+        labels=["version", "difficulty", "game_mode", "hardcore"],
+    )
     infos = get_game_infos()
     if infos:
         g.add_metric(infos.values(), 1)
-
     return g
