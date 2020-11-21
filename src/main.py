@@ -5,7 +5,7 @@ from src import RCON_ENABLED
 from src.core.nbt_stats import setup_player_data_metrics
 from src.core.player_stats import setup_player_stats_metrics
 from src.core.rcon_stats import get_players_online_metric
-from src.core.server_stats import get_players_uuid_name_metric
+from src.core.server_stats import get_players_uuid_name_metric, get_server_infos_metric
 from src.utils import get_player_names
 
 
@@ -16,6 +16,7 @@ class MinecraftCollector(object):
             yield get_players_online_metric()
 
         yield get_players_uuid_name_metric()
+        yield get_server_infos_metric()
 
         for player_uuid, player_name in get_player_names().items():
 

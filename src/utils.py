@@ -35,6 +35,22 @@ def get_player_data(uuid: str):
         logging.error(f"File [{ROOT_PATH}/world/playerdata/{uuid}.dat] not found")
 
 
+def get_level_data():
+    try:
+        return nbt.NBTFile(f"{ROOT_PATH}/world/level.dat", "rb")
+    except FileNotFoundError as e:
+        logging.error(f"File [{ROOT_PATH}/world/level.dat] not found")
+
+
+def get_game_infos():
+    level_data = get_level_data()
+    if level_data:
+        return {
+            "version": level_data["Data"]["Version"]["Name"].value,
+            "difficulty": str(level_data["Data"]["Difficulty"].value),
+            "game_mode": str(level_data["Data"]["GameType"].value)
+        }
+
 def rcon_command(command: str):
     try:
         with MCRcon(host=RCON_HOST, password=RCON_PASSWORD, port=RCON_PORT) as rcon:
