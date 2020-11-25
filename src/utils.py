@@ -57,7 +57,7 @@ def rcon_command(command: str):
     try:
         with MCRcon(host=RCON_HOST, password=RCON_PASSWORD, port=RCON_PORT) as rcon:
             return rcon.command(f"/{command}")
-    except MCRconException as e:
+    except (MCRconException, ConnectionError) as e:
         logging.error(f"Connection to RCON failed: {e}")
 
 
