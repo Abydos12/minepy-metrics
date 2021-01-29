@@ -1,3 +1,4 @@
+import logging
 import re
 from typing import Dict
 
@@ -504,10 +505,10 @@ def fill_after_1_13(name: str, player_stats: Dict[str, Dict[str, Dict[str, int]]
                         (name, item[: -len("_one_cm")]), value
                     )
                 elif item.startswith("clean_"):
-                    metrics["clean"].add_metric((name, item[len("clean_"):]), value)
+                    metrics["clean"].add_metric((name, item[len("clean_") :]), value)
                 elif item.startswith("time_since_"):
                     metrics["time"].add_metric(
-                        (name, item[len("time_"):]), value / 20 if value else 0
+                        (name, item[len("time_") :]), value / 20 if value else 0
                     )
                 elif item == "play_one_minute":
                     metrics["time"].add_metric(
@@ -521,7 +522,7 @@ def fill_after_1_13(name: str, player_stats: Dict[str, Dict[str, Dict[str, int]]
                     metrics["interact"].add_metric((name, INTERACTIONS[item]), value)
                 elif item.startswith("interact_with_"):
                     metrics["interact"].add_metric(
-                        (name, item[len("interact_with_"):]), value
+                        (name, item[len("interact_with_") :]), value
                     )
                 elif item in IGNORED:
                     continue
@@ -536,63 +537,59 @@ def fill_after_1_13(name: str, player_stats: Dict[str, Dict[str, Dict[str, int]]
 def fill_before_1_13(name: str, player_stats):
     metrics = _player_stats_metrics()
     for keys, value in player_stats.items():
-        try:
-            keys = keys.split(".")[1:]  # ignore "stat"
-            if len(keys) == 3:
-                key, mod, item = keys
-            elif len(keys) == 2:
-                key, mod, item = keys[0], "minecraft", keys[1]
-            elif len(keys) > 3:
-                key, mod, item = keys[0], keys[1], ".".join(keys[2:])
-            else:
-                key, mod, item = keys[0], "", ""
-            key = camel_to_snake(key)
+        keys = keys.split(".")[1:]  # ignore "stat"
+        if len(keys) == 3:
+            key, mod, item = keys
+        elif len(keys) == 2:
+            key, mod, item = keys[0], "minecraft", keys[1]
+        elif len(keys) > 3:
+            key, mod, item = keys[0], keys[1], ".".join(keys[2:])
+        else:
+            key, mod, item = keys[0], "", ""
+        key = camel_to_snake(key)
 
-            if key.endswith("_one_cm"):
-                metrics["distance"].add_metric((name, key[: -len("OneCm")]), value)
-            # elif item.startswith("clean_"):
-            #     metrics["clean"].add_metric((name, item[len("clean_"):]), value)
-            elif key.startswith("time_since_"):
-                metrics["time"].add_metric(
-                    (name, key[len("time_since_"):]), value / 20 if value else 0
-                )
-            elif "play_one_minute" == key:
-                metrics["time"].add_metric((name, "played"), value / 20 if value else 0)
-            elif "sneak_time" == key:
-                metrics["time"].add_metric((name, "sneak"), value / 20 if value else 0)
-            elif key in INTERACTIONS_OLD.keys():
-                metrics["interact"].add_metric((name, INTERACTIONS_OLD[key]), value)
-            elif key.endswith("_interaction"):
-                metrics["interact"].add_metric((name, item[:-len("_interaction")]), value)
-            elif "mine_block" == key:
-                metrics["mined"].add_metric((name, mod, item), value)
-            elif "craft_item" == key:
-                metrics["crafted"].add_metric((name, mod, item), value)
-            elif "use_item" == key:
-                metrics["used"].add_metric((name, mod, item), value)
-            elif "pickup" == key:
-                metrics["picked_up"].add_metric((name, mod, item), value)
-            elif "drop" == key and mod and item:  # ignore drop total
-                metrics["dropped"].add_metric((name, mod, item), value)
-            elif "kill_entity" == key:
-                metrics["killed"].add_metric((name, mod, item), value)
-            elif "entity_killed_by" == key:
-                metrics["killed_by"].add_metric((name, mod, item), value)
-            elif "item_enchanted" == key:
-                metrics["enchant_item"].add_metric((name,), value)
-            elif "record_played" == key:
-                metrics["play_record"].add_metric((name,), value)
-            elif "flower_potted" == key:
-                metrics["pot_flower"].add_metric((name,), value)
+        if key.endswith("_one_cm"):
+            metrics["distance"].add_metric((name, key[: -len("OneCm")]), value)
+        # elif item.startswith("clean_"):
+        #     metrics["clean"].add_metric((name, item[len("clean_"):]), value)
+        elif key.startswith("time_since_"):
+            metrics["time"].add_metric(
+                (name, key[len("time_since_") :]), value / 20 if value else 0
+            )
+        elif "play_one_minute" == key:
+            metrics["time"].add_metric((name, "played"), value / 20 if value else 0)
+        elif "sneak_time" == key:
+            metrics["time"].add_metric((name, "sneak"), value / 20 if value else 0)
+        elif key in INTERACTIONS_OLD.keys():
+            metrics["interact"].add_metric((name, INTERACTIONS_OLD[key]), value)
+        elif key.endswith("_interaction"):
+            metrics["interact"].add_metric((name, item[: -len("_interaction")]), value)
+        elif "mine_block" == key:
+            metrics["mined"].add_metric((name, mod, item), value)
+        elif "craft_item" == key:
+            metrics["crafted"].add_metric((name, mod, item), value)
+        elif "use_item" == key:
+            metrics["used"].add_metric((name, mod, item), value)
+        elif "pickup" == key:
+            metrics["picked_up"].add_metric((name, mod, item), value)
+        elif "drop" == key and mod and item:  # ignore drop total
+            metrics["dropped"].add_metric((name, mod, item), value)
+        elif "kill_entity" == key:
+            metrics["killed"].add_metric((name, mod, item), value)
+        elif "entity_killed_by" == key:
+            metrics["killed_by"].add_metric((name, mod, item), value)
+        elif "item_enchanted" == key:
+            metrics["enchant_item"].add_metric((name,), value)
+        elif "record_played" == key:
+            metrics["play_record"].add_metric((name,), value)
+        elif "flower_potted" == key:
+            metrics["pot_flower"].add_metric((name,), value)
 
-            elif key in IGNORED:
-                continue
-            else:
-                try:
-                    metrics[key].add_metric((name,), value)
-                except KeyError:
-                    print()
-
-        except:
-            print()
+        elif key in IGNORED:
+            continue
+        else:
+            try:
+                metrics[key].add_metric((name,), value)
+            except KeyError:
+                logging.error(f"Unsupported keys {keys} for stats player")
     return metrics

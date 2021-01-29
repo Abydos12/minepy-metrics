@@ -9,5 +9,5 @@ WORLD_NAME = os.getenv("WORLD_NAME", "world")
 
 RCON_ENABLED = RCON_PASSWORD and RCON_HOST
 
-# ROOT_PATH = "C:/Users/Guillaume/Desktop/Valhelsia_SERVER-3.1.6"
-ROOT_PATH = "C:/Users/Guillaume/Desktop/FeedTheBeast"
+ROOT_PATH = "/minecraft"
+

@@ -1,17 +1,15 @@
 import logging
 
-from prometheus_client import start_http_server, REGISTRY
-import time
 import uvicorn
 from prometheus_client import REGISTRY, make_asgi_app
 
 from src import RCON_ENABLED
-from src.core.player_stats import player_stats_metrics
 from src.core.metrics import players_online, players_uuid_name, world_infos, player_data
 from src.core.player_stats import player_stats_metrics
 from src.core.datasource import load_player_names
 
 logging.basicConfig(level=logging.INFO)
+
 
 class MinecraftCollector(object):
     def collect(self):
@@ -36,6 +34,6 @@ app = make_asgi_app()
 
 
 if __name__ == "__main__":
-    print(f"Start on port [8000]")
-    print(f"RCON is [{'ENABLED' if RCON_ENABLED else 'DISABLED'}]")
+    logging.info(f"Start on port [8000]")
+    logging.info(f"RCON is [{'ENABLED' if RCON_ENABLED else 'DISABLED'}]")
     uvicorn.run(app, port=8000, log_level="info")
