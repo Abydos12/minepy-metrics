@@ -28,16 +28,16 @@ def world_infos():
     g = GaugeMetricFamily(
         name="mc_world_infos",
         documentation="Give server info",
-        labels=["version", "difficulty", "game_mode", "hardcore"],
+        labels=("version", "difficulty", "game_mode", "hardcore"),
     )
     if infos := load_level_data():
         g.add_metric(
-            {
-                "version": infos["Data"]["Version"]["Name"].value,
-                "difficulty": str(infos["Data"]["Difficulty"].value),
-                "game_mode": str(infos["Data"]["GameType"].value),
-                "hardcore": str(infos["Data"]["hardcore"].value),
-            },
+            (
+                infos["Data"]["Version"]["Name"].value,
+                str(infos["Data"]["Difficulty"].value),
+                str(infos["Data"]["GameType"].value),
+                str(infos["Data"]["hardcore"].value),
+            ),
             1,
         )
     return g
