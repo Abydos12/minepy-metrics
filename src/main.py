@@ -7,6 +7,9 @@ from prometheus_client import REGISTRY, make_asgi_app
 
 from src import RCON_ENABLED
 from src.core.player_stats import player_stats_metrics
+from src.core.metrics import players_online, players_uuid_name, world_infos, player_data
+from src.core.player_stats import player_stats_metrics
+from src.core.datasource import load_player_names
 
 logging.basicConfig(level=logging.INFO)
 
