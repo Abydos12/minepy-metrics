@@ -1,5 +1,6 @@
 prometheus-client==0.9.0
 mcrcon==0.6.0
 nbt==1.5.0
-cachetools==4.1.1
+cachetools==4.2.1
 uvicorn==0.13.3
+gunicorn
