@@ -5,6 +5,7 @@ services:
     build: .
     container_name: Minepy-metrics
     environment:
+      WORLD_NAME: world
       RCON_HOST: localhost
       RCON_PASSWORD: password
       RCON_PORT: 25575
