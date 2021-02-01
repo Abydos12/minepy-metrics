@@ -1,7 +1,7 @@
 from prometheus_client.metrics_core import GaugeMetricFamily, CounterMetricFamily
 
 from src.core.datasource import load_player_names, load_level_data, load_player_data
-from src.core.scrapers import get_players_online, get_entities
+from src.core.scrapers import get_players_online, get_entities, get_mods
 
 
 def players_online():
@@ -26,10 +26,21 @@ def players_uuid_name():
 
 def entities_loaded():
     g = GaugeMetricFamily(
-        "mc_player_entities_loaded", "Give entities loaded", labels=("mod", "entity")
+        "mc_player_entities_loaded",
+        "Give entities loaded on forge server",
+        labels=("mod", "entity"),
     )
     for count, mod, entity in get_entities():
         g.add_metric((mod, entity), int(count))
+    return g
+
+
+def mods():
+    g = GaugeMetricFamily(
+        "mc_player_mods", "Give mods on forge server", labels=("mod", "version")
+    )
+    for mod, version in get_mods():
+        g.add_metric((mod, version), 1)
     return g
 
 

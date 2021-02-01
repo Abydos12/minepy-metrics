@@ -1,11 +1,19 @@
 import os
 
-__all__ = ["RCON_PASSWORD", "RCON_HOST", "RCON_PORT", "RCON_ENABLED", "ROOT_PATH"]
+__all__ = [
+    "RCON_PASSWORD",
+    "RCON_HOST",
+    "RCON_PORT",
+    "RCON_ENABLED",
+    "ROOT_PATH",
+    "FORGE_SERVER",
+]
 
 RCON_PASSWORD = os.getenv("RCON_PASSWORD", "")
 RCON_HOST = os.getenv("RCON_HOST", "")
 RCON_PORT = int(os.getenv("RCON_PORT", 25575))
 WORLD_NAME = os.getenv("WORLD_NAME", "world")
+FORGE_SERVER = bool(os.getenv("FORGE_SERVER", False))
 
 RCON_ENABLED = RCON_PASSWORD and RCON_HOST
 

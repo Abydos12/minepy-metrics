@@ -93,16 +93,6 @@ def _player_stats_metrics() -> Dict[str, CounterMetricFamily]:
             documentation="The number of times the player bred two mobs",
             labels=("player",),
         ),
-        # "clean_armor": CounterMetricFamily(
-        #     name="mc_player_armor_cleaned",
-        #     documentation="	The number of dyed leather armors washed with a cauldron",
-        #     labels=("player",),
-        # ),
-        # "clean_banner": CounterMetricFamily(
-        #     name="mc_player_banners_cleaned",
-        #     documentation="The number of banner patterns washed with a cauldron",
-        #     labels=("player",),
-        # ),
         "clean": CounterMetricFamily(
             name="mc_player_item_cleaned",
             documentation="	The number of item washed with a cauldron",
@@ -113,31 +103,11 @@ def _player_stats_metrics() -> Dict[str, CounterMetricFamily]:
             documentation="The number of times the player interact with something (barrel, chest, table, villager, etc...)",
             labels=("player", "with"),
         ),
-        # "open_barrel": CounterMetricFamily(
-        #     name="mc_player_barrels_open",
-        #     documentation="The number of times the player has opened a Barrel",
-        #     labels=("player",),
-        # ),
-        # "bell_ring": CounterMetricFamily(
-        #     name="mc_player_bells_rung",
-        #     documentation="The number of times the player has rung a Bell",
-        #     labels=("player",),
-        # ),
-        # "eat_cake_slice": CounterMetricFamily(
-        #     name="mc_player_cake_slices_eaten",
-        #     documentation="The number of cake slices eaten",
-        #     labels=("player",),
-        # ),
         "fill_cauldron": CounterMetricFamily(
             name="mc_player_cauldron_filled",
             documentation="The number of times the player filled cauldrons with water buckets",
             labels=("player",),
         ),
-        # "open_chest": CounterMetricFamily(
-        #     name="mc_player_chests_opened",
-        #     documentation="The number of times the player opened chests.",
-        #     labels=("player",),
-        # ),
         "damage_absorbed": CounterMetricFamily(
             name="mc_player_damage_absorbed",
             documentation="The amount of damage the player has absorbed in tenths of 1",
@@ -173,101 +143,11 @@ def _player_stats_metrics() -> Dict[str, CounterMetricFamily]:
             documentation="The amount of damage the player has taken in tenths of 1",
             labels=("player",),
         ),
-        # "inspect_dispenser": CounterMetricFamily(
-        #     name="mc_player_inspect_dispenser",
-        #     documentation="The number of times interacted with dispensers",
-        #     labels=("player",),
-        # ),
-        # "climb_one_cm": CounterMetricFamily(
-        #     name="mc_player_climb",
-        #     documentation="The total distance traveled up ladders or vines",
-        #     labels=("player",),
-        # ),
-        # "crouch_one_cm": CounterMetricFamily(
-        #     name="mc_player_crouch",
-        #     documentation="The total distance walked while sneaking",
-        #     labels=("player",),
-        # ),
-        # "fall_one_cm": CounterMetricFamily(
-        #     name="mc_player_fall",
-        #     documentation="The total distance fallen, excluding jumping. If the player falls more than one block, the entire jump is counted",
-        #     labels=("player",),
-        # ),
-        # "fly_one_cm": CounterMetricFamily(
-        #     name="mc_player_fly",
-        #     documentation="Distance traveled upwards and forwards at the same time, while more than one block above the ground",
-        #     labels=("player",),
-        # ),
-        # "sprint_one_cm": CounterMetricFamily(
-        #     name="mc_player_sprint",
-        #     documentation="The total distance sprinted",
-        #     labels=("player",),
-        # ),
-        # "swim_one_cm": CounterMetricFamily(
-        #     name="mc_player_swim",
-        #     documentation="The total distance covered with sprint-swimming",
-        #     labels=("player",),
-        # ),
-        # "walk_one_cm": CounterMetricFamily(
-        #     name="mc_player_walk",
-        #     documentation="The total distance walked",
-        #     labels=("player",),
-        # ),
-        # "walk_on_water_one_cm": CounterMetricFamily(
-        #     name="mc_player_walk_on_water",
-        #     documentation="The distance covered while bobbing up and down over water",
-        #     labels=("player",),
-        # ),
-        # "walk_under_water_one_cm": CounterMetricFamily(
-        #     name="mc_player_walk_under_water",
-        #     documentation="The total distance you have walked underwater",
-        #     labels=("player",),
-        # ),
-        # "boat_one_cm": CounterMetricFamily(
-        #     name="mc_player_boat",
-        #     documentation="The total distance traveled by boats",
-        #     labels=("player",),
-        # ),
-        # "aviate_one_cm": CounterMetricFamily(
-        #     name="mc_player_aviate",
-        #     documentation="The total distance traveled by elytra",
-        #     labels=("player",),
-        # ),
-        # "horse_one_cm": CounterMetricFamily(
-        #     name="mc_player_horse",
-        #     documentation="The total distance traveled by horses",
-        #     labels=("player",),
-        # ),
-        # "minecart_one_cm": CounterMetricFamily(
-        #     name="mc_player_minecart",
-        #     documentation="The total distance traveled by minecarts",
-        #     labels=("player",),
-        # ),
-        # "pig_one_cm": CounterMetricFamily(
-        #     name="mc_player_pig",
-        #     documentation="The total distance traveled by pigs via saddles",
-        #     labels=("player",),
-        # ),
-        # "strider_one_cm": CounterMetricFamily(
-        #     name="mc_player_strider",
-        #     documentation="The total distance traveled by striders via saddles",
-        #     labels=("player",),
-        # ),
         "distance": CounterMetricFamily(
             name="mc_player_distance",
             documentation="The total distance traveled (walk, fall, swim, pig, etc...)",
             labels=("player", "by"),
         ),
-        # "inspect_dropper": CounterMetricFamily(
-        #     name="mc_player_inspect_dropper",
-        #     documentation="The number of times interacted with droppers",
-        #     labels=("player",),
-        # ),
-        # "open_enderchest": CounterMetricFamily(
-        #     name="mc_player_enderchest_opened",
-        #     documentation="The number of times the player opened ender chests",
-        #     labels=("player",),
-        # ),
         "fish_caught": CounterMetricFamily(
             name="mc_player_fish_caught",
             documentation="The number of fish caught",
@@ -278,86 +158,6 @@ def _player_stats_metrics() -> Dict[str, CounterMetricFamily]:
             documentation="The number of times 'Save and quit to title' has been clicked",
             labels=("player",),
         ),
-        # "inspect_hopper": CounterMetricFamily(
-        #     name="mc_player_inspect_hopper",
-        #     documentation="The number of times interacted with hoppers",
-        #     labels=("player",),
-        # ),
-        # "interact_with_anvil": CounterMetricFamily(
-        #     name="mc_player_anvil_interaction",
-        #     documentation="The number of times interacted with anvils",
-        #     labels=("player",),
-        # ),
-        # "interact_with_beacon": CounterMetricFamily(
-        #     name="mc_player_beacon_interaction",
-        #     documentation="The number of times interacted with beacons",
-        #     labels=("player",),
-        # ),
-        # "interact_with_blast_furnace": CounterMetricFamily(
-        #     name="mc_player_blast_furnace_interaction",
-        #     documentation="The number of times interacted with Blast Furnaces",
-        #     labels=("player",),
-        # ),
-        # "interact_with_brewingstand": CounterMetricFamily(
-        #     name="mc_player_brewingstand_interaction",
-        #     documentation="The number of times interacted with brewing stands",
-        #     labels=("player",),
-        # ),
-        # "interact_with_campfire": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Campfires",
-        #     labels=("player",),
-        # ),
-        # "interact_with_cartography_table": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Cartography Tables",
-        #     labels=("player",),
-        # ),
-        # "interact_with_crafting_table": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with crafting tables",
-        #     labels=("player",),
-        # ),
-        # "interact_with_furnace": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with furnaces",
-        #     labels=("player",),
-        # ),
-        # "interact_with_gridstone": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Grindstones",
-        #     labels=("player",),
-        # ),
-        # "interact_with_lectern": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Lecterns",
-        #     labels=("player",),
-        # ),
-        # "interact_with_loom": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Looms",
-        #     labels=("player",),
-        # ),
-        # "interact_with_smithing_table": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Smithing Tables",
-        #     labels=("player",),
-        # ),
-        # "interact_with_smoker": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Smokers",
-        #     labels=("player",),
-        # ),
-        # "interact_with_stonecutter": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with Stonecutters",
-        #     labels=("player",),
-        # ),
-        # "drop": CounterMetricFamily(
-        #     name="mc_player_drop",
-        #     documentation="The number of items dropped. This does not include items dropped upon death. If a group of items are dropped together, eg a stack of 64, it only counts as 1",
-        #     labels=("player",),
-        # ),
         "enchant_item": CounterMetricFamily(
             name="mc_player_item_enchanted",
             documentation="The number of items enchanted",
@@ -368,11 +168,6 @@ def _player_stats_metrics() -> Dict[str, CounterMetricFamily]:
             documentation="The total number of jumps performed",
             labels=("player",),
         ),
-        # "mob_kills": CounterMetricFamily(
-        #     name="mc_player_mob_killed",
-        #     documentation="The number of mobs the player killed",
-        #     labels=("player",),
-        # ),
         "play_record": CounterMetricFamily(
             name="mc_player_record_played",
             documentation="The number of music discs played on a jukebox",
@@ -413,46 +208,11 @@ def _player_stats_metrics() -> Dict[str, CounterMetricFamily]:
             documentation="The number of times the player has won a Raid",
             labels=("player",),
         ),
-        # "clean_shulker_box": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times the player has washed a Shulker Box with a cauldron",
-        #     labels=("player",),
-        # ),
-        # "open_shulker_box": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times the player has opened a Shulker Box",
-        #     labels=("player",),
-        # ),
-        # "sneak_time": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The time the player has held down the sneak button",
-        #     labels=("player",),
-        # ),
-        # "talked_to_villager": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times interacted with villagers (opened the trading GUI)",
-        #     labels=("player",),
-        # ),
         "target_hit": CounterMetricFamily(
             name="mc_player_hit_target",
             documentation="The number of times the player has shot a target block",
             labels=("player",),
         ),
-        # "play_one_minute": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The total amount of time played",
-        #     labels=("player",),
-        # ),
-        # "time_since_death": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The time since the player's last death",
-        #     labels=("player",),
-        # ),
-        # "time_since_rest": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The time since the player's last rest. This is used to spawn phantoms",
-        #     labels=("player",),
-        # ),
         "time": CounterMetricFamily(
             name="mc_player_time_spend",
             documentation="The total amount of time in sec [since death, since rest, played, sneak])",
@@ -468,11 +228,6 @@ def _player_stats_metrics() -> Dict[str, CounterMetricFamily]:
             documentation="The number of times traded with villagers",
             labels=("player",),
         ),
-        # "trigger_trapped_chest": CounterMetricFamily(
-        #     name="mc_player_",
-        #     documentation="The number of times the player opened trapped chests",
-        #     labels=("player",),
-        # ),
         "use_cauldron": CounterMetricFamily(
             name="mc_player_used_cauldron",
             documentation="The number of times the player took water from cauldrons with glass bottles",
@@ -550,8 +305,6 @@ def fill_before_1_13(name: str, player_stats):
 
         if key.endswith("_one_cm"):
             metrics["distance"].add_metric((name, key[: -len("OneCm")]), value)
-        # elif item.startswith("clean_"):
-        #     metrics["clean"].add_metric((name, item[len("clean_"):]), value)
         elif key.startswith("time_since_"):
             metrics["time"].add_metric(
                 (name, key[len("time_since_") :]), value / 20 if value else 0
