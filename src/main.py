@@ -4,7 +4,13 @@ import uvicorn
 from prometheus_client import REGISTRY, make_asgi_app
 
 from src import RCON_ENABLED
-from src.core.metrics import players_online, players_uuid_name, world_infos, player_data
+from src.core.metrics import (
+    players_online,
+    players_uuid_name,
+    world_infos,
+    player_data,
+    entities_loaded,
+)
 from src.core.player_stats import player_stats_metrics
 from src.core.datasource import load_player_names
 
@@ -15,6 +21,7 @@ class MinecraftCollector(object):
     def collect(self):
         if RCON_ENABLED:
             yield players_online()
+            yield entities_loaded()
 
         yield players_uuid_name()
         yield world_infos()
