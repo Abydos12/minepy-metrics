@@ -9,13 +9,13 @@ __all__ = [
     "FORGE_SERVER",
 ]
 
-RCON_PASSWORD = os.getenv("RCON_PASSWORD", "")
-RCON_HOST = os.getenv("RCON_HOST", "")
-RCON_PORT = int(os.getenv("RCON_PORT", 25575))
+# ROOT_PATH = "/minecraft"
+ROOT_PATH = "C:\\Users\\Guillaume\\Desktop\\data"
 WORLD_NAME = os.getenv("WORLD_NAME", "world")
 FORGE_SERVER = bool(os.getenv("FORGE_SERVER", False))
 
+RCON_PASSWORD = os.getenv("RCON_PASSWORD", None)
+RCON_HOST = os.getenv("RCON_HOST", None)
+RCON_PORT = int(os.getenv("RCON_PORT", 25575))
+
 RCON_ENABLED = RCON_PASSWORD and RCON_HOST
-
-ROOT_PATH = "/minecraft"
-
