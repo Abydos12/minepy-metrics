@@ -9,8 +9,7 @@ __all__ = [
     "FORGE_SERVER",
 ]
 
-# ROOT_PATH = "/minecraft"
-ROOT_PATH = "C:\\Users\\Guillaume\\Desktop\\data"
+ROOT_PATH = "/minecraft"
 WORLD_NAME = os.getenv("WORLD_NAME", "world")
 FORGE_SERVER = bool(os.getenv("FORGE_SERVER", False))
 
