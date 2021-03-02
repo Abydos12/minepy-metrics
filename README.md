@@ -18,7 +18,7 @@ services:
       RCON_HOST: localhost
       RCON_PASSWORD: password
       RCON_PORT: 25575
-      FORGE_SERVER: True
+      FORGE_SERVER: "True"
     ports:
       - 8000:8000
     volumes:
