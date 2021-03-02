@@ -4,7 +4,7 @@ Strongly inspired by https://github.com/Joshi425/minecraft-exporter
 
 Dockerized prometheus exporter for minecraft. 
 
-## Use
+## Usage
 
 Docker compose example:
 ```yaml
@@ -38,6 +38,14 @@ VAR | DEFAULT | description
 `RCON_PORT` | `25575` | server's rcon port
 `RCON_PASSWORD` | `None` | world's folder name
 `FORGE_SERVER` | `False` | enable forge metrics (see [Forge metrcis]())
+
+### Grafana
+
+Import by id ``13992`` this json file [Dashboard](grafana-dashboard.json)
+
+#### Dashboard var
+- ``server``: get all ip with prometheus job name ``minepy-metrics``
+- ``player``: hidden var for templating by row
 
 ## Metrics
 
