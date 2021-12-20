@@ -270,9 +270,13 @@ def fill_after_1_13(name: str, player_stats: Dict[str, Dict[str, Dict[str, int]]
                     metrics["time"].add_metric(
                         (name, item[len("time_") :]), value / 20 if value else 0
                     )
-                elif item == "play_one_minute":
+                elif item == "play_one_minute" or item == "play_time":
                     metrics["time"].add_metric(
                         (name, "played"), value / 20 if value else 0
+                    )
+                elif item == "total_world_time":
+                    metrics["time"].add_metric(
+                        (name, "played_with_paused"), value / 20 if value else 0
                     )
                 elif item == "sneak_time":
                     metrics["time"].add_metric(
