@@ -1,6 +1,6 @@
 from prometheus_client.metrics_core import GaugeMetricFamily, CounterMetricFamily
 
-from src.core.datasource import load_player_names, load_level_data, load_player_data
+from src.core.datasource import load_players, load_level_data, load_player_data
 from src.core.scrapers import get_players_online, get_entities, get_mods
 
 
@@ -10,8 +10,8 @@ def players_online():
         documentation="gives players online",
         labels=("player",),
     )
-    for player in load_player_names().values():
-        g.add_metric(labels=(player,), value=1 if player in get_players_online() else 0)
+    for player in load_players():
+        g.add_metric(labels=(player["name"],), value=1 if player["name"] in get_players_online() else 0)
     return g
 
 
@@ -19,8 +19,8 @@ def players_uuid_name():
     g = GaugeMetricFamily(
         "mc_player_uuid", "Give player's name and uuid", labels=("uuid", "player")
     )
-    for player_uuid, player_name in load_player_names().items():
-        g.add_metric((player_uuid, player_name), 1)
+    for player in load_players():
+        g.add_metric((player["uuid"], player["name"]), 1)
     return g
 
 

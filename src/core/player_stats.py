@@ -265,10 +265,10 @@ def fill_after_1_13(name: str, player_stats: Dict[str, Dict[str, Dict[str, int]]
                         (name, item[: -len("_one_cm")]), value
                     )
                 elif item.startswith("clean_"):
-                    metrics["clean"].add_metric((name, item[len("clean_"):]), value)
+                    metrics["clean"].add_metric((name, item[len("clean_") :]), value)
                 elif item.startswith("time_since_"):
                     metrics["time"].add_metric(
-                        (name, item[len("time_"):]), value / 20 if value else 0
+                        (name, item[len("time_") :]), value / 20 if value else 0
                     )
                 elif item == "play_one_minute":
                     metrics["time"].add_metric(
@@ -282,12 +282,14 @@ def fill_after_1_13(name: str, player_stats: Dict[str, Dict[str, Dict[str, int]]
                     metrics["interact"].add_metric((name, INTERACTIONS[item]), value)
                 elif item.startswith("interact_with_"):
                     metrics["interact"].add_metric(
-                        (name, item[len("interact_with_"):]), value
+                        (name, item[len("interact_with_") :]), value
                     )
                 elif item in IGNORED:
                     continue
-                else:
+                elif item in metrics:
                     metrics[item].add_metric((name,), value)
+                else:
+                    logging.error(f"metric [{item}] not supported")
             else:
                 metrics[category].add_metric((name, mod, item), value)
 
@@ -312,7 +314,7 @@ def fill_before_1_13(name: str, player_stats):
             metrics["distance"].add_metric((name, key[: -len("OneCm")]), value)
         elif key.startswith("time_since_"):
             metrics["time"].add_metric(
-                (name, key[len("time_since_"):]), value / 20 if value else 0
+                (name, key[len("time_since_") :]), value / 20 if value else 0
             )
         elif "play_one_minute" == key:
             metrics["time"].add_metric((name, "played"), value / 20 if value else 0)

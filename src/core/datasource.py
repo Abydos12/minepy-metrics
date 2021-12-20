@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import Dict
+from typing import Dict, List
 
 from cachetools import cached, TTLCache
 from cachetools.func import ttl_cache
@@ -8,6 +8,10 @@ from mcrcon import MCRcon, MCRconException
 from nbt import nbt
 
 from src import ROOT_PATH, RCON_HOST, RCON_PASSWORD, RCON_PORT
+from src.tools.file_cache import JsonFileCache, NbtFileCache
+
+json_file_cache = JsonFileCache()
+nbt_file_cache = NbtFileCache()
 
 
 def rcon_command(command: str):
@@ -18,37 +22,20 @@ def rcon_command(command: str):
         logging.error(f"Connection to RCON failed: {e}")
 
 
-@ttl_cache(maxsize=1, ttl=60)
-def load_player_names() -> Dict[str, str]:
-    try:
-        with open(f"{ROOT_PATH}/usernamecache.json", "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        logging.error(f"File [{ROOT_PATH}/usernamecache.json] not found")
-        return {}
+def load_players() -> List[Dict[str, str]]:
+    return json_file_cache[f"{ROOT_PATH}/usercache.json"] or []
 
 
 def load_player_stats(uuid: str):
-    try:
-        with open(f"{ROOT_PATH}/world/stats/{uuid}.json", "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        logging.error(f"File [{ROOT_PATH}/world/stats/{uuid}.json] not found")
-        return {}
+    return json_file_cache[f"{ROOT_PATH}/world/stats/{uuid}.json"] or {}
 
 
 def load_player_data(uuid: str):
-    try:
-        return nbt.NBTFile(f"{ROOT_PATH}/world/playerdata/{uuid}.dat", "rb")
-    except FileNotFoundError as e:
-        logging.error(f"File [{ROOT_PATH}/world/playerdata/{uuid}.dat] not found")
+    return nbt_file_cache[f"{ROOT_PATH}/world/playerdata/{uuid}.dat"]
 
 
 def load_level_data():
-    try:
-        return nbt.NBTFile(f"{ROOT_PATH}/world/level.dat", "rb")
-    except FileNotFoundError:
-        logging.error(f"File [{ROOT_PATH}/world/level.dat] not found")
+    return nbt_file_cache[f"{ROOT_PATH}/world/level.dat"]
 
 
 @cached(cache=TTLCache(maxsize=1, ttl=600))
