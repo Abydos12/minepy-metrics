@@ -1,25 +1,13 @@
-import json
 import logging
 from typing import Dict, List
 
 from cachetools import cached, TTLCache
-from cachetools.func import ttl_cache
-from mcrcon import MCRcon, MCRconException
-from nbt import nbt
 
-from src import ROOT_PATH, RCON_HOST, RCON_PASSWORD, RCON_PORT
+from src.config import ROOT_PATH
 from src.tools.file_cache import JsonFileCache, NbtFileCache
 
 json_file_cache = JsonFileCache()
 nbt_file_cache = NbtFileCache()
-
-
-def rcon_command(command: str):
-    try:
-        with MCRcon(host=RCON_HOST, password=RCON_PASSWORD, port=RCON_PORT) as rcon:
-            return rcon.command(f"/{command}")
-    except (MCRconException, OSError) as e:
-        logging.error(f"Connection to RCON failed: {e}")
 
 
 def load_players() -> List[Dict[str, str]]:

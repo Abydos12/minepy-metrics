@@ -1,8 +1,10 @@
 import logging
 import uvicorn
+from mcrcon import MCRcon, MCRconException
 from prometheus_client import REGISTRY, make_asgi_app
 
-from src import RCON_ENABLED, FORGE_SERVER
+from src.collectors.rcon_collector import RconCollector
+from src.config import RCON_ENABLED, FORGE_SERVER, RCON_HOST, RCON_PASSWORD, RCON_PORT
 from src.core.metrics import (
     players_online,
     players_uuid_name,
@@ -13,6 +15,11 @@ from src.core.metrics import (
 )
 from src.core.player_stats import player_stats_metrics
 from src.core.datasource import load_players
+from src.tools.rcon_client import RconClient
+
+if RCON_ENABLED:
+    rcon_client = RconClient()
+    REGISTRY.register(RconCollector(rcon_client))
 
 
 class MinecraftCollector:

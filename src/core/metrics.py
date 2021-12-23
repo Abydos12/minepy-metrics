@@ -1,7 +1,6 @@
 from prometheus_client.metrics_core import GaugeMetricFamily, CounterMetricFamily
 
 from src.core.datasource import load_players, load_level_data, load_player_data
-from src.core.scrapers import get_players_online, get_entities, get_mods
 
 
 def players_online():
