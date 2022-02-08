@@ -8,7 +8,7 @@ from mcrcon import MCRcon, MCRconException
 from src.config import RCON_ENABLED, RCON_HOST, RCON_PASSWORD, RCON_PORT
 
 
-class RconClient:
+class BaseRconClient:
     rcon_client: MCRcon
 
     def __init__(self):
@@ -28,6 +28,9 @@ class RconClient:
     def command(self, command: str):
         if len(command) > 0:
             return self.rcon_client.command("/" + command)
+
+
+class RconClient(BaseRconClient):
 
     @cached(cache=TTLCache(maxsize=1, ttl=60))
     def get_players_online(self) -> List[str]:
