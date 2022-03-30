@@ -6,29 +6,26 @@ from prometheus_client import REGISTRY, make_asgi_app
 from src.collectors.rcon_collector import RconCollector
 from src.config import RCON_ENABLED, FORGE_SERVER, RCON_HOST, RCON_PASSWORD, RCON_PORT
 from src.core.metrics import (
-    players_online,
     players_uuid_name,
     world_infos,
     player_data,
-    entities_loaded,
-    mods,
 )
 from src.core.player_stats import player_stats_metrics
 from src.core.datasource import load_players
-from src.tools.rcon_client import RconClient
+from src.tools.rcon_client import RconClient, rcon_connection
 
 if RCON_ENABLED:
-    rcon_client = RconClient()
-    REGISTRY.register(RconCollector(rcon_client))
+    try:
+        with MCRcon(host=RCON_HOST, password=RCON_PASSWORD, port=RCON_PORT) as rcon:
+            REGISTRY.register(RconCollector(rcon))
+            if FORGE_SERVER:
+                pass
+    except (MCRconException, OSError) as e:
+        logging.error(f"Connection to RCON failed: {e}")
 
 
 class MinecraftCollector:
     def collect(self):
-        if RCON_ENABLED:
-            yield players_online()
-            if FORGE_SERVER:
-                yield entities_loaded()
-                yield mods()
 
         yield players_uuid_name()
         yield world_infos()

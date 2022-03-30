@@ -13,8 +13,8 @@ class BaseFileCache:
 
     def __getitem__(self, item):
         if (
-                item not in self._cache_last_update
-                or os.stat(item).st_mtime > self._cache_last_update[item]
+            item not in self._cache_last_update
+            or os.stat(item).st_mtime > self._cache_last_update[item]
         ):
             return self.__missing__(item)
         return self._cache_content[item]

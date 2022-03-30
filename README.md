@@ -2,7 +2,7 @@
 
 Strongly inspired by https://github.com/Joshi425/minecraft-exporter
 
-Dockerized prometheus exporter for minecraft. 
+Dockerized metrics (prometheus) exporter for minecraft. 
 
 ## Usage
 

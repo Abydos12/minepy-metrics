@@ -1,3 +1,4 @@
+from mcrcon import MCRcon
 from prometheus_client.metrics_core import GaugeMetricFamily
 
 from src.core.datasource import load_players
@@ -16,12 +17,15 @@ class RconCollector:
     rcon_client: RconClient
     metrics = Metrics()
 
-    def __init__(self, rcon_client: RconClient):
-        self.rcon_client = rcon_client
+    def __init__(self, rcon: MCRcon):
+        self.rcon_client = RconClient(rcon)
 
     def collect(self):
         for player in load_players():
-            self.metrics.players_online.add_metric(labels=(player["name"],),
-                                                   value=1 if player[
-                                                                  "name"] in self.rcon_client.get_players_online() else 0)
+            self.metrics.players_online.add_metric(
+                labels=(player["name"],),
+                value=1
+                if player["name"] in self.rcon_client.get_players_online()
+                else 0,
+            )
         yield self.metrics.players_online
